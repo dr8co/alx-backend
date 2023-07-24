@@ -2,7 +2,8 @@
 """
 A simple helper function.
 """
-
+import csv
+import math
 from typing import Tuple, List
 
 
@@ -36,10 +37,9 @@ class Server:
         """
         if self.__dataset is None:
             with open(self.DATA_FILE) as f:
-                data = f.read()
-            data = data.split("\n")
-            data = [row.split(",") for row in data]
-            self.__dataset = data
+                reader = csv.reader(f)
+                dataset = [row for row in reader]
+            self.__dataset = dataset[1:]
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
